@@ -1,0 +1,120 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block body %}
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Product Details Page</h1>
+					<nav class="d-flex align-items-center">
+						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
+						<a href="single-product.html">product-details</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Single Product Area =================-->
+	<div class="product_image_area">
+		<div class="container">
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					<div class="s_Product_carousel">
+						<div class="single-prd-item">
+							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5 offset-lg-1">
+					<div class="s_product_text">
+						 <h2> Brand Name :{{ product_obj.brand_id.brand_name }}</h2>
+						<h3> Product Name : {{ product_obj.product_name }}</h3>
+						 <h4>Price : {{ product_obj.product_price }}</h4>
+						<ul class="list">
+							<li><span>Availibility</span> : In Stock</li>
+							<li><span>Quantity left</span> : {{ product_obj.product_qnt }}</li>
+						</ul>
+						<p>Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
+							something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
+							during the winter.</p>
+						<div class="product_count">
+							<label for="qty">Quantity:</label>
+							<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty" max="{{ product_obj.product_qnt }}">
+							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+							 class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+							<button onclick="var result = document.getElementById('sst'); 
+							var sst = result.value; 
+							if( !isNaN( sst ) &amp;&amp; sst > 0 ) 
+							result.value--;
+							return false;"
+							 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+						</div>
+						<div class="card_area d-flex align-items-center">
+							<input type="text" name="product_id" value="{{product_obj.pk}}" hidden>
+							<a class="primary-btn add_to_cart" href="">Add to Cart</a>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<section class="owl-carousel active-product-area section_gap">
+		<!-- single product slide -->
+		<div class="single-product-slider">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-6 text-center">
+						<div class="section-title">
+							<h1>Similar Products</h1>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					{% for i in similar_products %}
+
+					<div class="col-lg-3 col-md-6">
+						<div class="single-product">
+							<img class="img-fluid" src="img/product/p1.jpg" alt="">
+							<div class="product-details">
+								<h6><a href="{% url 'productDetail' i.product_id %}">{{ i.product_name }}</a></h6>
+
+								<div class="price">
+									<h6>{{ i.product_price }}/-</h6>
+								</div>	
+								<div class="prd-bottom">
+										<a href="" class="social-info add_to_cart">
+											<span class="ti-bag"></span>
+											<input type="text" id="product_id" value="{{i.pk}}" hidden>
+
+											<p class="hover-text add_to_cart">add to Cart</p>
+										</a>
+									</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		
+	</section>
+	
+	<script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+
+	<script src="{% static 'js/common.js' %}"></script>
+
+{% endblock %}
